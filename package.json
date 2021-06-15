@@ -1,5 +1,5 @@
 {
-  "name": "ad-connect",
+  "name": "ad-connector",
   "version": "0.0.1",
   "description": "Connector for on-premises active directory",
   "main": "index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.edifylabs.net/edify/express-template.git"
+    "url": "https://github.com/Edify-Labs-Cloud/ad-connector.git"
   },
   "author": "Edify Labs",
   "license": "ISC",
