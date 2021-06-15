@@ -1,13 +1,10 @@
-FROM node:14
+FROM node:14-alpine
 
 WORKDIR /code/ad-connector
 
 COPY ./ /code/ad-connector
 
-RUN useradd -u 8877 edify \
-  && npm install \
+RUN npm install \
   && npm run build
-
-USER edify
 
 CMD npm run start
