@@ -8,7 +8,7 @@ Used to communicate with on-premises active directory.
 - Replace CONTAINER_PORT with PORT from .env
 - Replace HOST_PORT with target port on host machine
 ```
-docker run -d -v /ssl:/ssl --env-file /PATH/TO/ENV -p CONTAINER_PORT:HOST_PORT --restart=always --name edify-ad-connector docker-reg.edifylabs.net/ad-connector:latest
+docker run -d -v /ssl:/ssl --env-file /PATH/TO/ENV -p HOST_PORT:CONTAINER_PORT --restart=always --name edify-ad-connector docker-reg.edifylabs.net/ad-connector:latest
 ```
 
 or run from node:
