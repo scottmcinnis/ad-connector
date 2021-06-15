@@ -42,6 +42,8 @@ app.use((err, req, res, next) => {
       return respond.withInternalError(req, res);
     case 'ForbiddenError':
       return respond.withForbidden(req, res, err.message);
+    case 'RequestTimeout':
+      return respond.withRequestTimeout(req, res, err.message);
     default:
       return respond.withInternalError(req, res);
   }

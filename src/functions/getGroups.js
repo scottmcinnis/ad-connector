@@ -1,4 +1,4 @@
-import ActiveDirectory from 'activedirectory';
+import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
 export default async function getGroups({ filter, attributes, ldapConfig }) {
@@ -15,7 +15,11 @@ export default async function getGroups({ filter, attributes, ldapConfig }) {
       }
       return resolve(result);
     });
-  }).catch((_err) => {
-    throw new errors.NotFoundError('Unable to connect to LDAP');
+  }).catch((err) => {
+    if (err.message.includes('connectTimeout')) {
+      throw new errors.RequestTimeout('Unable to connect to LDAP');
+    }
+
+    throw new errors.InternalError(`Error executing request: ${e.message}`);
   });
 }
