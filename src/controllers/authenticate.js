@@ -1,4 +1,4 @@
-import ActiveDirectory from 'activedirectory';
+import ActiveDirectory from '@edifylabs/activedirectory';
 import { respond, errors } from '../utils';
 
 export default async function handleAuthenticate(req, res, next) {
@@ -13,6 +13,10 @@ export default async function handleAuthenticate(req, res, next) {
 
     return respond.withOk(req, res, { authenticated: true });
   } catch (error) {
+    if (error.message.includes('connectTimeout')) {
+      return next(new errors.RequestTimeout('Unable to connect to LDAP'));
+    }
+    
     return next(new errors.UnauthorizedError('Authentication failed'));
   }
 }

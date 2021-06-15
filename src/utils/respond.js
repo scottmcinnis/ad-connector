@@ -40,4 +40,9 @@ respond.withTooManyRequests = (_req, res, message = 'Too Many Requests', errors 
   res.json({ message, errors });
 };
 
+respond.withRequestTimeout = (_req, res, message = 'Request Timeout') => {
+  res.status(HttpStatus.REQUEST_TIMEOUT);
+  res.json({ message });
+};
+
 export default respond;

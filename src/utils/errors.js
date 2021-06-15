@@ -62,3 +62,11 @@ export class TooManyRequestsError extends EdifyError {
     Error.captureStackTrace(this, TooManyRequestsError);
   }
 }
+
+export class RequestTimeout extends EdifyError {
+  constructor(message) {
+    super(message);
+    this.name = 'RequestTimeout';
+    Error.captureStackTrace(this, RequestTimeout);
+  }
+}
