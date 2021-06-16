@@ -1,4 +1,4 @@
 export { default as handleAuthenticate } from './authenticate';
-export { default as getUpdatedUsers } from './getUpdatedUsers';
-export { default as getUserByEmail } from './getUserByEmail';
-export { default as getAllGroups } from './getAllGroups';
+export { default as listUsers } from './listUsers';
+export { default as describeUser } from './describeUser';
+export { default as listGroups } from './listGroups';

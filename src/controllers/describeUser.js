@@ -1,7 +1,7 @@
 import { errors, respond } from '../utils';
 import { getUser } from '../functions';
 
-export default async function getUserByEmail(req, res, next) {
+export default async function describeUser(req, res, next) {
   try {
     const { email, attributes, ldapConfig } = req.body;
 
