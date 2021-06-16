@@ -1,7 +1,7 @@
 import { errors, respond } from '../utils';
 import { getGroups } from '../functions';
 
-export default async function getAllGroups(req, res, next) {
+export default async function listGroups(req, res, next) {
   try {
     const { filter, attributes, ldapConfig } = req.body;
 
