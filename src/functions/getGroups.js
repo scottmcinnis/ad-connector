@@ -20,6 +20,6 @@ export default async function getGroups({ filter, attributes, ldapConfig }) {
       throw new errors.RequestTimeout('Unable to connect to LDAP');
     }
 
-    throw new errors.InternalError(`Error executing request: ${e.message}`);
+    throw new errors.InternalError(`Error executing request: ${err.message}`);
   });
 }
