@@ -1,5 +1,5 @@
 import { errors, respond } from '../utils';
-import { getGroups, getGroupMembership } from '../functions';
+import { findGroups, getGroupMembershipForGroup } from '../functions';
 
 export default async function listGroups(req, res, next) {
   try {
@@ -10,8 +10,8 @@ export default async function listGroups(req, res, next) {
     }
 
     const groupsFromAD = !groups
-      ? await getGroups({ filter, attributes, ldapConfig })
-      : await getGroupMembership({ groups, attributes, ldapConfig });
+      ? await findGroups({ filter, attributes, ldapConfig })
+      : await getGroupMembershipForGroup({ groups, attributes, ldapConfig });
 
     if (!groupsFromAD) {
       return respond.withOk(req, res, { groups: [] });

@@ -1,5 +1,5 @@
 import { errors, respond } from '../utils';
-import { getUsers } from '../functions';
+import { findUsers } from '../functions';
 
 export default async function listUsers(req, res, next) {
   try {
@@ -9,7 +9,7 @@ export default async function listUsers(req, res, next) {
       throw new errors.UnprocessableError('ldapConfig is required');
     }
 
-    const users = await getUsers({ filter, attributes, ldapConfig }) || [];
+    const users = await findUsers({ filter, attributes, ldapConfig }) || [];
 
     return respond.withOk(req, res, { users });
   } catch (error) {

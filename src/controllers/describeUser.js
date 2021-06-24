@@ -1,5 +1,5 @@
 import { errors, respond } from '../utils';
-import { getUser } from '../functions';
+import { findUser } from '../functions';
 
 export default async function describeUser(req, res, next) {
   try {
@@ -9,7 +9,7 @@ export default async function describeUser(req, res, next) {
       throw new errors.UnprocessableError('email & ldapConfig are both required');
     }
 
-    const user = await getUser({ email, attributes, ldapConfig });
+    const user = await findUser({ email, attributes, ldapConfig });
 
     if (!user) {
       throw new errors.NotFoundError('User not found');

@@ -1,12 +1,16 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function getUser({ email, attributes, ldapConfig }) {
+export default async function findUsers({ filter, attributes, ldapConfig }) {
   const ldapConnection = new ActiveDirectory(ldapConfig);
   const options = attributes ? { attributes } : {};
 
+  if (filter) {
+    options.filter = filter;
+  }
+
   return new Promise((resolve, reject) => {
-    ldapConnection.findUser(options, email, (err, result) => {
+    ldapConnection.findUsers(options, (err, result) => {
       if (err) {
         return reject(err);
       }

@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyAuthHeader } from './middleware';
-import { handleAuthenticate, listUsers, describeUser, listGroups } from './controllers';
+import { handleAuthenticate, listUsers, describeUser, listGroups, describeGroup } from './controllers';
 
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.post('/authenticate', handleAuthenticate);
 router.post('/users', listUsers);
 router.post('/user', describeUser);
 router.post('/groups', listGroups);
+router.post('/group', describeGroup);
 
 export default router;

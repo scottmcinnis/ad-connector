@@ -1,7 +1,7 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function getGroupMembership({ groups, filter, attributes, ldapConfig }) {
+export default async function getGroupMembershipForGroup({ groups, filter, attributes, ldapConfig }) {
   const ldapConnection = new ActiveDirectory(ldapConfig);
   const options = attributes ? { attributes } : {};
 
@@ -22,5 +22,5 @@ export default async function getGroupMembership({ groups, filter, attributes, l
     }),
   ));
 
-  return results.reduce((acc, result) => ({ ...acc, ...result }));
+  return results.reduce((acc, result) => ({ ...acc, ...result }), {});
 }
