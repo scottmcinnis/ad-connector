@@ -1,21 +1,23 @@
 import { errors, respond } from '../utils';
-import { getGroups } from '../functions';
+import { getGroups, getGroupMembership } from '../functions';
 
 export default async function listGroups(req, res, next) {
   try {
-    const { filter, attributes, ldapConfig } = req.body;
+    const { filter, attributes, groups = null, ldapConfig } = req.body;
 
     if (!ldapConfig) {
       throw new errors.UnprocessableError('ldapConfig is required');
     }
 
-    const groups = await getGroups({ filter, attributes, ldapConfig });
+    const groupsFromAD = !groups
+      ? await getGroups({ filter, attributes, ldapConfig })
+      : await getGroupMembership({ groups, attributes, ldapConfig });
 
-    if (!groups) {
+    if (!groupsFromAD) {
       return respond.withOk(req, res, { groups: [] });
     }
 
-    return respond.withOk(req, res, { groups });
+    return respond.withOk(req, res, { groups: groupsFromAD });
   } catch (error) {
     return next(error);
   }
