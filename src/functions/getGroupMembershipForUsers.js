@@ -1,21 +1,21 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function getGroupMembershipForGroup({ groups, attributes, ldapConfig }) {
-  if (!Object.keys(groups)) {
+export default async function getGroupMembershipForUser({ users, attributes, ldapConfig }) {
+  if (!Object.keys(users).length) {
     return {};
   }
 
   const ldapConnection = new ActiveDirectory(ldapConfig);
   const options = attributes ? { attributes } : {};
 
-  const results = await Promise.all(groups.map((group) =>
+  const results = await Promise.all(users.map((user) =>
     new Promise((resolve, reject) => {
-      ldapConnection.getGroupMembershipForGroup(options, group, (err, result) => {
+      ldapConnection.getGroupMembershipForGroup(options, user, (err, result) => {
         if (err) {
           return reject(err);
         }
-        return resolve({ [group]: result });
+        return resolve({ [user]: result });
       });
     }).catch((err) => {
       if (err.message.includes('connectTimeout')) {
