@@ -1,5 +1,5 @@
 import { errors, respond } from '../utils';
-import { getGroupMembershipForUsers, getGroupMembershipForGroup } from '../functions';
+import { getGroupMembershipForUsers, getGroupMembershipForGroups } from '../functions';
 
 export default async function listGroupMembership(req, res, next) {
   try {
@@ -11,11 +11,11 @@ export default async function listGroupMembership(req, res, next) {
 
     const type = !groups ? 'users' : 'groups';
 
-    const results = !groups
+    const response = type === 'users'
       ? await getGroupMembershipForUsers({ users, attributes, ldapConfig })
-      : await getGroupMembershipForGroup({ groups, attributes, ldapConfig });
+      : await getGroupMembershipForGroups({ groups, attributes, ldapConfig });
 
-    return respond.withOk(req, res, { [type]: results });
+    return respond.withOk(req, res, { [type]: response });
   } catch (error) {
     return next(error);
   }

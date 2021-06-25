@@ -1,12 +1,12 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function findGroup({ groupName, attributes, ldapConfig }) {
+export default async function findGroup({ group, attributes, ldapConfig }) {
   const ldapConnection = new ActiveDirectory(ldapConfig);
   const options = attributes ? { attributes } : {};
 
   return new Promise((resolve, reject) => {
-    ldapConnection.findGroup(options, groupName, (err, result) => {
+    ldapConnection.findGroup(options, group, (err, result) => {
       if (err) {
         return reject(err);
       }

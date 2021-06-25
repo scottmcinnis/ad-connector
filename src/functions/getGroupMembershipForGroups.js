@@ -1,8 +1,8 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function getGroupMembershipForGroup({ groups, attributes, ldapConfig }) {
-  if (!Object.keys(groups)) {
+export default async function getGroupMembershipForGroups({ groups, attributes, ldapConfig }) {
+  if (!groups.length) {
     return {};
   }
 

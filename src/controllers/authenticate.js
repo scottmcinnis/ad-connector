@@ -16,7 +16,7 @@ export default async function handleAuthenticate(req, res, next) {
     if (error.message.includes('connectTimeout')) {
       return next(new errors.RequestTimeout('Unable to connect to LDAP'));
     }
-    
+
     return next(new errors.UnauthorizedError('Authentication failed'));
   }
 }

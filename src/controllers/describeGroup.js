@@ -3,19 +3,19 @@ import { findGroup } from '../functions';
 
 export default async function describeGroup(req, res, next) {
   try {
-    const { groupName, attributes, ldapConfig } = req.body;
+    const { group, attributes, ldapConfig } = req.body;
 
-    if (!groupName || !ldapConfig) {
+    if (!group || !ldapConfig) {
       throw new errors.UnprocessableError('groupName & ldapConfig are both required');
     }
 
-    const group = await findGroup({ groupName: groupName, attributes, ldapConfig });
+    const groupResponse = await findGroup({ group, attributes, ldapConfig });
 
-    if (!group) {
+    if (!groupResponse) {
       throw new errors.NotFoundError('Group not found');
     }
 
-    return respond.withOk(req, res, { group });
+    return respond.withOk(req, res, { group: groupResponse });
   } catch (error) {
     return next(error);
   }

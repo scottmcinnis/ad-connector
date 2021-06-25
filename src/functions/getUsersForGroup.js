@@ -1,12 +1,12 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function getUsersForGroup({ groupName, attributes, ldapConfig }) {
+export default async function getUsersForGroup({ group, attributes, ldapConfig }) {
   const ldapConnection = new ActiveDirectory(ldapConfig);
   const options = attributes ? { attributes } : {};
 
   return new Promise((resolve, reject) => {
-    ldapConnection.getUsersForGroup(options, groupName, (err, result) => {
+    ldapConnection.getUsersForGroup(options, group, (err, result) => {
       if (err) {
         return reject(err);
       }

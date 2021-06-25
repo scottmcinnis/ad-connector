@@ -3,19 +3,19 @@ import { getUsersForGroup } from '../functions';
 
 export default async function listGroupMembers(req, res, next) {
   try {
-    const { groupName, attributes, ldapConfig } = req.body;
+    const { group, attributes, ldapConfig } = req.body;
 
-    if (!groupName || !ldapConfig) {
-      throw new errors.UnprocessableError('groupName & ldapConfig are both required');
+    if (!group || !ldapConfig) {
+      throw new errors.UnprocessableError('group & ldapConfig are both required');
     }
 
-    const group = await getUsersForGroup({ groupName: groupName, attributes, ldapConfig });
+    const groupResponse = await getUsersForGroup({ group: group, attributes, ldapConfig });
 
-    if (!group) {
+    if (!groupResponse) {
       throw new errors.NotFoundError('Group not found');
     }
 
-    return respond.withOk(req, res, { group });
+    return respond.withOk(req, res, { group: groupResponse });
   } catch (error) {
     return next(error);
   }

@@ -1,8 +1,8 @@
 import ActiveDirectory from '@edifylabs/activedirectory';
 import { errors } from '../utils';
 
-export default async function getGroupMembershipForUser({ users, attributes, ldapConfig }) {
-  if (!Object.keys(users).length) {
+export default async function getGroupMembershipForUsers({ users, attributes, ldapConfig }) {
+  if (!users.length) {
     return {};
   }
 
@@ -11,7 +11,7 @@ export default async function getGroupMembershipForUser({ users, attributes, lda
 
   const results = await Promise.all(users.map((user) =>
     new Promise((resolve, reject) => {
-      ldapConnection.getGroupMembershipForGroup(options, user, (err, result) => {
+      ldapConnection.getGroupMembershipForUser(options, user, (err, result) => {
         if (err) {
           return reject(err);
         }

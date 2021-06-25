@@ -3,19 +3,19 @@ import { findUser } from '../functions';
 
 export default async function describeUser(req, res, next) {
   try {
-    const { email, attributes, ldapConfig } = req.body;
+    const { user, attributes, ldapConfig } = req.body;
 
-    if (!email || !ldapConfig) {
-      throw new errors.UnprocessableError('email & ldapConfig are both required');
+    if (!user || !ldapConfig) {
+      throw new errors.UnprocessableError('user & ldapConfig are both required');
     }
 
-    const user = await findUser({ email, attributes, ldapConfig });
+    const userResponse = await findUser({ user, attributes, ldapConfig });
 
-    if (!user) {
+    if (!userResponse) {
       throw new errors.NotFoundError('User not found');
     }
 
-    return respond.withOk(req, res, { user });
+    return respond.withOk(req, res, { user: userResponse });
   } catch (error) {
     return next(error);
   }

@@ -19,7 +19,7 @@ router.post('/users', listUsers);
 router.post('/user', describeUser);
 router.post('/groups', listGroups);
 router.post('/group', describeGroup);
-router.post('/groupMembership', listGroupMembership); // handle { groups/user(s) }
+router.post('/groupMembership', listGroupMembership);
 router.post('/groupMembers', listGroupMembers);
 
 export default router;
